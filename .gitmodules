@@ -1,0 +1,3 @@
+[submodule "libs/utf8"]
+	path = libs/utf8
+	url = https://gist.github.com/RadianceX/0f2f17a2f06c15fb1c23c1a357deee1f
