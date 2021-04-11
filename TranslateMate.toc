@@ -1,6 +1,7 @@
 ## Interface: 30300
 ## Title: |cFF00AAFFTranslateMate
 ## Author: RadianceX
+## Notes: Translates message to language that is understandable for both fractions
 ## Version: 1.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
@@ -9,4 +10,4 @@ init.lua
 libs\utf8\utf8.lua
 languages.lua
 backend.lua
-tsmate.lua
+TranslateMate.lua

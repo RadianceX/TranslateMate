@@ -11,9 +11,10 @@ function TranslateMate:new()
             Prints greeting message when Player log in
             :param event: WoW event
             ]]
-            if (event == "PLAYER_ENTERING_WORLD") then
+            if (event == "PLAYER_LOGIN") then
                 local version = GetAddOnMetadata("TranslateMate", "Version");
                 private:addon_message("TranslateMate v"..version.." loaded. Type /translatemate for usage.")
+                public:prepare()
             end
         end
 
@@ -105,16 +106,6 @@ function TranslateMate:new()
         private.supported_languages = ""
 
         function public:init()
-            local this = CreateFrame("Frame", "TranslateMate", UIParent)
-            this:SetScript("OnEvent", private.prepare)
-            this:RegisterEvent("PLAYER_ENTERING_WORLD")
-        end
-
-        function public:prepare()
-            --[[
-            Constructor
-            ]]
-            -- Register addon commands handler
             SLASH_TS1 = "/ts"
             SLASH_TS2 = "/translatemate"
             SlashCmdList["TS"] = function(msg, editBox) private:player_input_handler(msg, editBox) end
@@ -122,8 +113,15 @@ function TranslateMate:new()
             -- Set OnLogin greeting
             local this = CreateFrame("Frame", "TranslateMate", UIParent)
             this:SetScript("OnEvent", private.login_event_handler)
-            this:RegisterEvent("PLAYER_ENTERING_WORLD")
+            this:RegisterEvent("PLAYER_LOGIN")
 
+        end
+
+        function public:prepare()
+            --[[
+            Constructor
+            ]]
+            -- Register addon commands handler
             -- Init translator
             private.player_language = GetDefaultLanguage("player")
             private.translator = TSMATE.backend:new(TSMATE.languages[private.player_language])
@@ -139,4 +137,4 @@ end
 
 
 local tsmate = TranslateMate:new()
-tsmate:prepare()
+tsmate:init()
